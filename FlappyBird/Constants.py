@@ -11,6 +11,10 @@ WIN_WIDTH = 400
 base_path = os.path.dirname(os.path.dirname(__file__))
 imgs_path = os.path.join(base_path, "imgs")
 bg_img = pygame.transform.scale(pygame.image.load(os.path.join(imgs_path,"bg.png")), (WIN_WIDTH, WIN_HEIGHT))
+bird_imgs = [pygame.image.load(os.path.join(imgs_path,"bird1.png")),
+            pygame.image.load(os.path.join(imgs_path,"bird2.png")),
+            pygame.image.load(os.path.join(imgs_path,"bird3.png"))]
+
 
 
 # Colours

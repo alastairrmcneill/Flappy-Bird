@@ -9,6 +9,7 @@ from flappybird.Game import Game
 # Variables and constants
 WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption("Flappy Bird")
+clock = pygame.time.Clock()
 
 # Main function
 def main():
@@ -16,7 +17,7 @@ def main():
     game = Game(WIN)
 
     while run:
-        pygame.time.delay(50)
+        clock.tick(30)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

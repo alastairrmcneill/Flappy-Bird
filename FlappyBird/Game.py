@@ -17,6 +17,7 @@ class Game:
 
 
     def update(self):
+        self.bird.move()
         self.win.blit(self.bg_img, (0,0))
         self.bird.draw()
         pygame.display.update()
