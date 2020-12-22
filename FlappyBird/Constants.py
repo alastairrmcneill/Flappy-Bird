@@ -16,8 +16,7 @@ bird_imgs = [pygame.image.load(os.path.join(imgs_path,"bird1.png")),
             pygame.image.load(os.path.join(imgs_path,"bird2.png")),
             pygame.image.load(os.path.join(imgs_path,"bird3.png"))]
 base_img = pygame.image.load(os.path.join(imgs_path,"base.png"))
-# base_img = pygame.transform.scale(base, (int(base.get_width() * 1.2),int(base.get_height() * 1.2)))
-
+pipe_img = pygame.image.load(os.path.join(imgs_path,"pipe.png"))
 
 # Colours
 WHITE = (255, 255, 255)
@@ -26,5 +25,5 @@ RED = (255, 0, 0)
 
 # Game speed
 FPS = 30
-VEL = 3
+VEL = 4
 

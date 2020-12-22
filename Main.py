@@ -2,7 +2,7 @@
 
 # Imports
 import pygame
-from flappybird.Constants import WIN_HEIGHT, WIN_WIDTH
+from flappybird.Constants import WIN_HEIGHT, WIN_WIDTH, FPS
 from flappybird.Game import Game
 
 
@@ -17,7 +17,7 @@ def main():
     game = Game(WIN)
 
     while run:
-        clock.tick(30)
+        clock.tick(FPS)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -28,6 +28,7 @@ def main():
             game.jump()
 
         game.update()
+        game.draw()
 
     pygame.quit()
 
