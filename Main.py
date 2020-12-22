@@ -2,16 +2,18 @@
 
 # Imports
 import pygame
-from FlappyBird.Constants import WIN_HEIGHT, WIN_WIDTH
+from flappybird.Constants import WIN_HEIGHT, WIN_WIDTH
+from flappybird.Game import Game
+
 
 # Variables and constants
-pygame.display.set_mode((WIN_HEIGHT, WIN_WIDTH))
+WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption("Flappy Bird")
-
 
 # Main function
 def main():
     run = True
+    game = Game(WIN)
 
     while run:
         pygame.time.delay(50)
@@ -22,9 +24,9 @@ def main():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
-            pass
+            game.jump()
 
-        pygame.display.update()
+        game.update()
 
     pygame.quit()
 
