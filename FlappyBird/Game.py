@@ -2,6 +2,7 @@
 import pygame
 from flappybird.Constants import bg_img
 from flappybird.Bird import Bird
+from flappybird.Base import Base
 
 
 class Game:
@@ -9,7 +10,7 @@ class Game:
         self.win = win
         self.bg_img = bg_img
         self.bird = Bird(self.win)
-        self.pipes = []
+        self.base = Base(self.win)
 
 
     def jump(self):
@@ -18,6 +19,10 @@ class Game:
 
     def update(self):
         self.bird.move()
+        self.base.move()
+
         self.win.blit(self.bg_img, (0,0))
         self.bird.draw()
+        self.base.draw()
+
         pygame.display.update()
