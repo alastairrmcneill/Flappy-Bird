@@ -10,6 +10,7 @@ class Pipe:
         self.height = 0
         self.vel = VEL
         self.gap = 120
+        self.passed = False
 
         self.top = 0
         self.bottom = 0
@@ -30,6 +31,9 @@ class Pipe:
 
     def off_screen(self):
         return self.x + self.TOP_IMG.get_width() < 0
+
+    def right(self):
+        return self.x + self.TOP_IMG.get_width()
 
     def draw(self):
         self.win.blit(self.TOP_IMG, (self.x, self.top))

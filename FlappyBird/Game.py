@@ -5,6 +5,8 @@ from flappybird.Bird import Bird
 from flappybird.Base import Base
 from flappybird.Pipe import Pipe
 
+pygame.font.init()
+myfont = pygame.font.SysFont('Marker Felt', 50)
 
 class Game:
     def __init__(self, win):
@@ -29,7 +31,9 @@ class Game:
             self.tick_count = 0
 
     def get_score(self):
-        pass
+        if not self.pipes[0].passed and self.bird.x > self.pipes[0].right():
+            self.score += 1
+            self.pipes[0].passed = True
 
 
     def update(self):
@@ -45,12 +49,16 @@ class Game:
         self.get_score()
 
 
+
     def draw(self):
         self.win.blit(self.bg_img, (0,0))
         self.bird.draw()
         for pipe in self.pipes:
             pipe.draw()
         self.base.draw()
+
+        textsurface = myfont.render(str(self.score), False, (0, 0, 0))
+        self.win.blit(textsurface, (10,10))
 
 
         pygame.display.update()
