@@ -13,15 +13,14 @@ clock = pygame.time.Clock()
 
 # Main function
 def main():
-    run = True
     game = Game(WIN)
 
-    while run:
+    while game.running:
         clock.tick(FPS)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                game.running = False
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
@@ -29,6 +28,7 @@ def main():
 
         game.update()
         game.draw()
+
 
     pygame.quit()
 
