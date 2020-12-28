@@ -15,6 +15,8 @@ clock = pygame.time.Clock()
 def main():
     game = Game(WIN)
 
+    game.start_screen()
+
     while game.running:
         clock.tick(FPS)
 
