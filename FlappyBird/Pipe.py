@@ -35,6 +35,12 @@ class Pipe:
     def right(self):
         return self.x + self.TOP_IMG.get_width()
 
+    def get_masks(self):
+        top_mask = pygame.mask.from_surface(self.TOP_IMG)
+        bottom_mask = pygame.mask.from_surface(self.BOTTOM_IMG)
+
+        return top_mask, bottom_mask
+
     def draw(self):
         self.win.blit(self.TOP_IMG, (self.x, self.top))
         self.win.blit(self.BOTTOM_IMG, (self.x, self.bottom))

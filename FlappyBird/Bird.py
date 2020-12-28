@@ -66,17 +66,38 @@ class Bird:
             self.img = self.IMGS[1]
             self.img_count = int(self.img_loop * 1.5)
 
+    def get_mask(self):
+        return pygame.mask.from_surface(self.rotated_img)
 
+    def collide(self, pipe, base):
+        bird_mask = self.get_mask()
 
+        top_mask, bottom_mask = pipe.get_masks()
+        base_mask = base.get_mask()
+
+        top_offset = (pipe.x - self.x, pipe.top - round(self.y))
+        bottom_offset = (pipe.x - self.x, pipe.bottom - round(self.y))
+
+        top_intersect = bird_mask.overlap(top_mask, top_offset)
+        bottom_intersect = bird_mask.overlap(bottom_mask, bottom_offset)
+
+        # Implement the base collisions
+        base_offsets = [(base.x1 - self.x, base.y - round(self.y)), (base.x2 - self.x, base.y - round(self.y)), (base.x3 - self.x, base.y - round(self.y))]
+
+        for offset in base_offsets:
+            base_intersect = bird_mask.overlap(base_mask, offset)
+            if base_intersect:
+                return True
+
+        if top_intersect or bottom_intersect:
+            return True
+
+        return False
 
     def draw(self):
         self.get_img()
 
-        rotated_image = pygame.transform.rotate(self.img, self.tilt)
-        new_rect = rotated_image.get_rect(center = self.img.get_rect(topleft = (self.x, self.y)).center)
+        self.rotated_img = pygame.transform.rotate(self.img, self.tilt)
+        new_rect = self.rotated_img.get_rect(center = self.img.get_rect(topleft = (self.x, self.y)).center)
 
-        self.win.blit(rotated_image, new_rect.topleft)
-
-
-    def get_mask(self):
-        pass
+        self.win.blit(self.rotated_img, new_rect.topleft)

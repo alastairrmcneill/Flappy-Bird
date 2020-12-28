@@ -12,6 +12,7 @@ class Base:
         self.x1 = 0
         self.x2 = self.width
         self.x3 = self.x2 + self.width
+        self.y = FLOOR_HEIGHT
 
     def move(self):
         self.x1 -= self.vel
@@ -27,8 +28,11 @@ class Base:
         if self.x3 + self.width <0:
             self.x3 = self.x2 + self.width
 
+    def get_mask(self):
+        return pygame.mask.from_surface(self.img)
+
 
     def draw(self):
-        self.win.blit(self.img, (self.x1,FLOOR_HEIGHT))
-        self.win.blit(self.img, (self.x2,FLOOR_HEIGHT))
-        self.win.blit(self.img, (self.x3,FLOOR_HEIGHT))
+        self.win.blit(self.img, (self.x1,self.y))
+        self.win.blit(self.img, (self.x2,self.y))
+        self.win.blit(self.img, (self.x3,self.y))

@@ -18,6 +18,8 @@ class Game:
         self.pipes.append(Pipe(self.win))
         self.tick_count = 0
         self.score = 0
+        self.started = False
+        self.running = True
 
 
     def jump(self):
@@ -46,7 +48,17 @@ class Game:
         for pipe in self.pipes:
             pipe.move()
 
+        self.check_collisions()
+
         self.get_score()
+
+    def check_collisions(self):
+        if self.bird.y < 0:
+            self.running = False
+
+        if self.bird.collide(self.pipes[0], self.base):
+            print("collided")
+            self.running = False
 
 
 
