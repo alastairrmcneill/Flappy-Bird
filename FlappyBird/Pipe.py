@@ -28,6 +28,9 @@ class Pipe:
     def move(self):
         self.x -= self.vel
 
+    def off_screen(self):
+        return self.x + self.TOP_IMG.get_width() < 0
+
     def draw(self):
         self.win.blit(self.TOP_IMG, (self.x, self.top))
         self.win.blit(self.BOTTOM_IMG, (self.x, self.bottom))

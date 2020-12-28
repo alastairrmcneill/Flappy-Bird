@@ -36,7 +36,6 @@ class Bird:
 
         self.y = self.y + displacement
 
-        print(displacement)
         self.get_rotation(displacement)
 
 

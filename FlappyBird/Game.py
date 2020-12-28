@@ -15,6 +15,7 @@ class Game:
         self.pipes = []
         self.pipes.append(Pipe(self.win))
         self.tick_count = 0
+        self.score = 0
 
 
     def jump(self):
@@ -27,12 +28,22 @@ class Game:
             self.pipes.append(Pipe(self.win))
             self.tick_count = 0
 
+    def get_score(self):
+        pass
+
+
     def update(self):
+        if self.pipes[0].off_screen():
+            self.pipes.pop(0)
+
         self.bird.move()
         self.base.move()
         self.add_pipes()
         for pipe in self.pipes:
             pipe.move()
+
+        self.get_score()
+
 
     def draw(self):
         self.win.blit(self.bg_img, (0,0))
