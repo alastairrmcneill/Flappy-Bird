@@ -22,6 +22,7 @@ class Bird:
         self.new_rect = None
         self.hit_base = False
         self.hit_pipe = False
+        self.hit_top = False
 
 
     def jump(self):
@@ -33,7 +34,7 @@ class Bird:
         self.tilt = -90
         if self.hit_base:
              return
-        if self.hit_pipe:
+        if self.hit_pipe or self.hit_top:
             self.gravity = 10
             self.move()
 

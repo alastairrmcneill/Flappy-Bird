@@ -167,7 +167,11 @@ class Game:
         self.get_score()
 
     def check_collisions(self):
-        if self.bird.y < 0 or self.bird.collide(self.pipes[0], self.base):
+        if self.bird.y < 0:
+            self.bird.hit_top = True
+            self.ended = True
+
+        if self.bird.collide(self.pipes[0], self.base):
             self.ended = True
 
     def draw(self):
