@@ -42,9 +42,7 @@ def main():
         game.update()
         game.draw()
 
-
     pygame.quit()
-
 
 # Run main loop
 main()
