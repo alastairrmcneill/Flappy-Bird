@@ -1,4 +1,6 @@
-## Bird class for the flappy bird game
+"""
+Bird class for the flappy bird game
+"""
 import pygame
 from flappybird.Constants import BLACK, WIN_HEIGHT, bird_imgs
 
@@ -6,6 +8,11 @@ class Bird:
     IMGS = bird_imgs
 
     def __init__(self, win):
+        """
+        Bird class holds all the logic for moving and collision detection
+        Arguments:
+            win {surface} -- Surface that everything gets drawn on to
+        """
         self.win = win
         self.y = WIN_HEIGHT//2
         self.height = self.y
@@ -26,11 +33,17 @@ class Bird:
 
 
     def jump(self):
+        """
+        Method that causes bird to jump
+        """
         self.vel = -4.5
         self.tick_count = 0
         self.height = self.y
 
     def crash(self):
+        """
+        Method which determines what to do when bird has crashed
+        """
         self.tilt = -90
         if self.hit_base:
              return
@@ -39,12 +52,14 @@ class Bird:
             self.move()
 
     def move(self):
+        """
+        Method updates the bird's position
+        """
         self.tick_count += 1
         displacement = self.vel*self.tick_count + 0.5*self.gravity*self.tick_count**2
 
         if displacement > 15:
             displacement = 15
-        print(displacement)
 
         self.y = self.y + displacement
 
@@ -52,6 +67,12 @@ class Bird:
 
 
     def get_rotation(self, displacement):
+        """
+        Method determines the angle of the bird on the screen
+
+        Arguments:
+            displacement {int} -- the displacement in this frame of the game
+        """
         if displacement < 0:
             self.tilt = 20
         else:
@@ -60,6 +81,9 @@ class Bird:
 
 
     def get_img(self):
+        """
+        Method determines what image to show on the screen
+        """
         self.img_count += 1
 
         if self.img_count < self.img_loop:
@@ -79,9 +103,23 @@ class Bird:
             self.img_count = int(self.img_loop * 1.5)
 
     def get_mask(self):
+        """
+        Method gets a mask of the brid
+        Returns:
+            Mask -- Mask of the current bird position
+        """
         return pygame.mask.from_surface(self.rotated_img)
 
     def collide(self, pipe, base):
+        """Method checks for collisions between the bird and pipes and the base
+
+        Arguments:
+            pipe {Pipe} -- Pipe object
+            base {Base} -- Base object
+
+        Returns:
+            Bool -- True if collision
+        """
         bird_mask = self.get_mask()
 
         top_mask, bottom_mask = pipe.get_masks()
@@ -109,6 +147,9 @@ class Bird:
         return False
 
     def draw(self):
+        """
+        Method draws the bird to the screen
+        """
         self.get_img()
 
         self.rotated_img = pygame.transform.rotate(self.img, self.tilt)

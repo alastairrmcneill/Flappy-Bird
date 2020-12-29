@@ -1,4 +1,7 @@
-## Constants for the Flappy Bird game
+"""
+Constants for the Flappy Bird game
+"""
+
 import os
 import pygame
 
@@ -25,7 +28,7 @@ RED = (255, 0, 0)
 
 # Game speed
 FPS = 30
-VEL = 4
+VEL = 5
 
 # Fonts
 pygame.font.init()

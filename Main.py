@@ -1,4 +1,8 @@
-# Main file for the flappy bird game
+"""
+Author: Alastair McNeill
+Recreate the Flappy Bird game within Python using pygame.
+Has ability to restart after crash, pixel perfect collisions and high score tracking
+"""
 
 # Imports
 import pygame
@@ -13,16 +17,20 @@ clock = pygame.time.Clock()
 
 # Main function
 def main():
+    """
+    Main game loop that handles inputs
+    """
     run = True
     game = Game(WIN)
-    pressed = False
+    pressed = False                     # Means a click is only one click
+
 
     while run:
         clock.tick(FPS)
 
-        if not game.started:
+        if not game.started:            # If the game hasn't started yet show the start screen
             game.start_screen()
-        if game.ended:
+        if game.ended:                  # If the bird has crashed show the end screen
             game.end_screen()
 
         for event in pygame.event.get():
@@ -33,14 +41,14 @@ def main():
                 if event.key == pygame.K_SPACE:
                     if not pressed:
                         game.jump()
-                        pressed = True
+                        pressed = True  # Ensure the event is only registered once per click
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
-                    pressed = False
+                    pressed = False     # Reset the button
 
-        game.update()
-        game.draw()
+        game.update()                   # Move all the pieces
+        game.draw()                     # Draw all the pieces
 
     pygame.quit()
 
