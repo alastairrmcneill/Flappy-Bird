@@ -11,7 +11,7 @@ class Bird:
         self.height = self.y
         self.x = 75
         self.vel = 0
-        self.gravity = 2.8
+        self.gravity = 1
         self.tick_count = 0
         self.tilt = 0
         self.img = self.IMGS[0]
@@ -26,7 +26,7 @@ class Bird:
 
 
     def jump(self):
-        self.vel = -9
+        self.vel = -4.5
         self.tick_count = 0
         self.height = self.y
 
@@ -42,8 +42,9 @@ class Bird:
         self.tick_count += 1
         displacement = self.vel*self.tick_count + 0.5*self.gravity*self.tick_count**2
 
-        if displacement > 20:
-            displacement = 20
+        if displacement > 15:
+            displacement = 15
+        print(displacement)
 
         self.y = self.y + displacement
 
