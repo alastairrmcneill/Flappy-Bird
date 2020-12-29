@@ -4,7 +4,7 @@ from flappybird.Constants import bg_img
 from flappybird.Bird import Bird
 from flappybird.Base import Base
 from flappybird.Pipe import Pipe
-from flappybird.Constants import WIN_WIDTH, WIN_HEIGHT, FPS, BLACK, smallFont, bigFont, smallestFont, file_path
+from flappybird.Constants import WIN_WIDTH, WIN_HEIGHT, FPS, BLACK, mediumFont, largeFont, smallFont, file_path
 
 class Game:
     def __init__(self, win):
@@ -27,8 +27,11 @@ class Game:
         self.clock = pygame.time.Clock()
 
     def start_screen(self):
+        delay = 10
         run = True
+
         while run:
+            delay -= 1
             self.clock.tick(FPS)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -38,22 +41,28 @@ class Game:
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]:
-                self.started = True
-                run = False
+                if delay < 0:
+                    self.started = True
+                    run = False
 
-            self.win.blit(self.bg_img, (0,0))
-            self.bird.draw()
-            text = smallFont.render("Press SPACE to start", False, BLACK)
-            text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2 + 50))
-            self.win.blit(text, text_rect)
+            self.draw_start_screen()
 
-            pygame.display.update()
+    def draw_start_screen(self):
+        self.win.blit(self.bg_img, (0,0))
+        self.bird.draw()
+
+
+        welcome_message = mediumFont.render("Press SPACE to start", False, BLACK)
+        rect = welcome_message.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2 + 50))
+        self.win.blit(welcome_message, rect)
+
+        pygame.display.update()
 
     def end_screen(self):
         self.set_high_score()
 
         run = True
-        delay = 50
+        delay = 30
         message = ""
 
         while run:
@@ -76,34 +85,40 @@ class Game:
             self.bird.crash()
             self.check_collisions()
 
-            self.win.blit(self.bg_img, (0,0))
-            self.bird.draw()
-            for pipe in self.pipes:
-                pipe.draw()
-            self.base.draw()
+            self.draw_end_screen(message)
+
+    def draw_end_screen(self, message):
+        self.win.blit(self.bg_img, (0,0))
+        for pipe in self.pipes:
+            pipe.draw()
+        self.bird.draw()
+        self.base.draw()
 
 
-            text = smallFont.render("Game Over", False, BLACK)
-            text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2))
-            score_text = bigFont.render("Score: " + str(self.score), False, BLACK)
-            score_text_rect = score_text.get_rect(center = (WIN_WIDTH/2, WIN_HEIGHT/2 + 50))
-            restart_text = smallestFont.render(message, False, BLACK)
-            restart_text_rect = restart_text.get_rect(center = (WIN_WIDTH/2, WIN_HEIGHT - 100))
+        self.end_game_text(message)
 
-            if self.score > self.highScore and self.score > 0:
-                high_score_text = bigFont.render("New High Score!", False, BLACK)
-            else:
-                high_score_text = smallFont.render("High Score: " + str(self.highScore), False, BLACK)
+        pygame.display.update()
 
-            high_score_text_rect = high_score_text.get_rect(center = (WIN_WIDTH/2, WIN_HEIGHT/2 - 100))
+    def end_game_text(self, message):
+        game_over_text = mediumFont.render("Game Over", False, BLACK)
+        rect = game_over_text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2))
+        self.win.blit(game_over_text, rect)
 
+        score_text = largeFont.render("Score: " + str(self.score), False, BLACK)
+        rect = score_text.get_rect(center = (WIN_WIDTH/2, WIN_HEIGHT/2 + 50))
+        self.win.blit(score_text, rect)
 
-            self.win.blit(restart_text, restart_text_rect)
-            self.win.blit(text, text_rect)
-            self.win.blit(score_text, score_text_rect)
-            self.win.blit(high_score_text, high_score_text_rect)
+        restart_text = smallFont.render(message, False, BLACK)
+        rect = restart_text.get_rect(center = (WIN_WIDTH/2, WIN_HEIGHT - 100))
+        self.win.blit(restart_text, rect)
 
-            pygame.display.update()
+        if self.score > self.highScore and self.score > 0:
+            high_score_text = largeFont.render("New High Score!", False, BLACK)
+        else:
+            high_score_text = mediumFont.render("High Score: " + str(self.highScore), False, BLACK)
+
+        rect = high_score_text.get_rect(center = (WIN_WIDTH/2, WIN_HEIGHT/2 - 100))
+        self.win.blit(high_score_text, rect)
 
     def get_high_score(self):
         try:
@@ -162,7 +177,7 @@ class Game:
             pipe.draw()
         self.base.draw()
 
-        textsurface = bigFont.render(str(self.score), False, (0, 0, 0))
+        textsurface = largeFont.render(str(self.score), False, (0, 0, 0))
         self.win.blit(textsurface, (10,10))
 
 
