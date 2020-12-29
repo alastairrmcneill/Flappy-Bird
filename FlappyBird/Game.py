@@ -90,10 +90,18 @@ class Game:
             restart_text = smallestFont.render(message, False, BLACK)
             restart_text_rect = restart_text.get_rect(center = (WIN_WIDTH/2, WIN_HEIGHT - 100))
 
+            if self.score > self.highScore and self.score > 0:
+                high_score_text = bigFont.render("New High Score!", False, BLACK)
+            else:
+                high_score_text = smallFont.render("High Score: " + str(self.highScore), False, BLACK)
+
+            high_score_text_rect = high_score_text.get_rect(center = (WIN_WIDTH/2, WIN_HEIGHT/2 - 100))
+
 
             self.win.blit(restart_text, restart_text_rect)
             self.win.blit(text, text_rect)
             self.win.blit(score_text, score_text_rect)
+            self.win.blit(high_score_text, high_score_text_rect)
 
             pygame.display.update()
 
