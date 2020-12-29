@@ -4,15 +4,14 @@ from flappybird.Constants import bg_img
 from flappybird.Bird import Bird
 from flappybird.Base import Base
 from flappybird.Pipe import Pipe
-from flappybird.Constants import WIN_WIDTH, WIN_HEIGHT, FPS
-
-pygame.font.init()
-scoreFont = pygame.font.SysFont('Marker Felt', 50)
-startFont = pygame.font.SysFont('Marker Felt', 30)
+from flappybird.Constants import WIN_WIDTH, WIN_HEIGHT, FPS, BLACK, smallFont, bigFont, smallestFont
 
 class Game:
     def __init__(self, win):
         self.win = win
+        self.reset()
+
+    def reset(self):
         self.bg_img = bg_img
         self.bird = Bird(self.win)
         self.base = Base(self.win)
@@ -22,6 +21,7 @@ class Game:
         self.score = 0
         self.started = False
         self.running = True
+        self.ended = False
         self.clock = pygame.time.Clock()
 
     def start_screen(self):
@@ -41,9 +41,55 @@ class Game:
 
             self.win.blit(self.bg_img, (0,0))
             self.bird.draw()
-            text = startFont.render("Press SPACE to start", False, (0, 0, 0))
+            text = smallFont.render("Press SPACE to start", False, BLACK)
             text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2 + 50))
             self.win.blit(text, text_rect)
+
+            pygame.display.update()
+
+    def end_screen(self):
+        run = True
+        delay = 50
+        message = ""
+
+        while run:
+            delay -= 1
+
+            self.clock.tick(FPS)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                    pygame.quit()
+                    quit()
+            if delay < 0:
+                message = "Press SPACE to restart game"
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_SPACE]:
+                    run = False
+                    self.reset()
+                    return
+
+            self.bird.crash()
+            self.check_collisions()
+
+            self.win.blit(self.bg_img, (0,0))
+            self.bird.draw()
+            for pipe in self.pipes:
+                pipe.draw()
+            self.base.draw()
+
+
+            text = smallFont.render("Game Over", False, BLACK)
+            text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2))
+            score_text = bigFont.render("Score: " + str(self.score), False, BLACK)
+            score_text_rect = score_text.get_rect(center = (WIN_WIDTH/2, WIN_HEIGHT/2 + 50))
+            restart_text = smallestFont.render(message, False, BLACK)
+            restart_text_rect = restart_text.get_rect(center = (WIN_WIDTH/2, WIN_HEIGHT - 100))
+
+
+            self.win.blit(restart_text, restart_text_rect)
+            self.win.blit(text, text_rect)
+            self.win.blit(score_text, score_text_rect)
 
             pygame.display.update()
 
@@ -80,14 +126,8 @@ class Game:
         self.get_score()
 
     def check_collisions(self):
-        if self.bird.y < 0:
-            self.running = False
-
-        if self.bird.collide(self.pipes[0], self.base):
-            print("collided")
-            self.running = False
-
-
+        if self.bird.y < 0 or self.bird.collide(self.pipes[0], self.base):
+            self.ended = True
 
     def draw(self):
         self.win.blit(self.bg_img, (0,0))
@@ -96,7 +136,7 @@ class Game:
             pipe.draw()
         self.base.draw()
 
-        textsurface = scoreFont.render(str(self.score), False, (0, 0, 0))
+        textsurface = bigFont.render(str(self.score), False, (0, 0, 0))
         self.win.blit(textsurface, (10,10))
 
 

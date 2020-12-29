@@ -27,3 +27,8 @@ RED = (255, 0, 0)
 FPS = 30
 VEL = 4
 
+# Fonts
+pygame.font.init()
+bigFont = pygame.font.SysFont('Marker Felt', 50)
+smallFont = pygame.font.SysFont('Marker Felt', 30)
+smallestFont = pygame.font.SysFont('Marker Felt', 20)

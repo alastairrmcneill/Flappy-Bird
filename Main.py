@@ -13,16 +13,20 @@ clock = pygame.time.Clock()
 
 # Main function
 def main():
+    run = True
     game = Game(WIN)
 
-    game.start_screen()
-
-    while game.running:
+    while run:
         clock.tick(FPS)
+
+        if not game.started:
+            game.start_screen()
+        if game.ended:
+            game.end_screen()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                game.running = False
+                run = False
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:

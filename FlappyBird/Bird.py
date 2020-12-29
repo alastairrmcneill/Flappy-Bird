@@ -11,6 +11,7 @@ class Bird:
         self.height = self.y
         self.x = 75
         self.vel = 0
+        self.gravity = 2.8
         self.tick_count = 0
         self.tilt = 0
         self.img = self.IMGS[0]
@@ -19,17 +20,26 @@ class Bird:
         self.img_loop = 5
         self.rot_vel = 10
         self.new_rect = None
+        self.hit_base = False
+        self.hit_pipe = False
 
 
     def jump(self):
-        self.vel = -10
+        self.vel = -9
         self.tick_count = 0
         self.height = self.y
 
+    def crash(self):
+        self.tilt = -90
+        if self.hit_base:
+             return
+        if self.hit_pipe:
+            self.gravity = 10
+            self.move()
 
     def move(self):
         self.tick_count += 1
-        displacement = self.vel*self.tick_count + 0.5*3*self.tick_count**2
+        displacement = self.vel*self.tick_count + 0.5*self.gravity*self.tick_count**2
 
         if displacement > 20:
             displacement = 20
@@ -87,9 +97,11 @@ class Bird:
         for offset in base_offsets:
             base_intersect = bird_mask.overlap(base_mask, offset)
             if base_intersect:
+                self.hit_base = True
                 return True
 
         if top_intersect or bottom_intersect:
+            self.hit_pipe = True
             return True
 
         return False
