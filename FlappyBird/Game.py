@@ -4,7 +4,7 @@ from flappybird.Constants import bg_img
 from flappybird.Bird import Bird
 from flappybird.Base import Base
 from flappybird.Pipe import Pipe
-from flappybird.Constants import WIN_WIDTH, WIN_HEIGHT, FPS, BLACK, smallFont, bigFont, smallestFont
+from flappybird.Constants import WIN_WIDTH, WIN_HEIGHT, FPS, BLACK, smallFont, bigFont, smallestFont, file_path
 
 class Game:
     def __init__(self, win):
@@ -19,6 +19,8 @@ class Game:
         self.pipes.append(Pipe(self.win))
         self.tick_count = 0
         self.score = 0
+        self.highScore = 0
+        self.get_high_score()
         self.started = False
         self.running = True
         self.ended = False
@@ -48,6 +50,8 @@ class Game:
             pygame.display.update()
 
     def end_screen(self):
+        self.set_high_score()
+
         run = True
         delay = 50
         message = ""
@@ -93,7 +97,21 @@ class Game:
 
             pygame.display.update()
 
+    def get_high_score(self):
+        try:
+            f = open(file_path, "r")
+            data = f.read()
+            f.close()
 
+            self.highScore = int(data)
+        except:
+            self.highScore = 0
+
+    def set_high_score(self):
+        if self.score > self.highScore:
+            f = open(file_path,"w")
+            f.write(str(self.score))
+            f.close()
 
     def jump(self):
         self.bird.jump()

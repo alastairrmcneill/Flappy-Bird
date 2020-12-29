@@ -32,3 +32,8 @@ pygame.font.init()
 bigFont = pygame.font.SysFont('Marker Felt', 50)
 smallFont = pygame.font.SysFont('Marker Felt', 30)
 smallestFont = pygame.font.SysFont('Marker Felt', 20)
+
+
+# Init File Path
+
+file_path = os.path.join(base_path, "files/score.txt")
