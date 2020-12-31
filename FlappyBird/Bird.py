@@ -2,7 +2,7 @@
 Bird class for the flappy bird game
 """
 import pygame
-from flappybird.Constants import BLACK, WIN_HEIGHT, bird_imgs
+from FlappyBird.Constants import BLACK, WIN_HEIGHT, bird_imgs
 
 class Bird:
     IMGS = bird_imgs

@@ -3,7 +3,7 @@ Base class for the flappy bird game
 """
 
 import pygame
-from flappybird.Constants import VEL, base_img, FLOOR_HEIGHT
+from FlappyBird.Constants import VEL, base_img, FLOOR_HEIGHT
 
 class Base:
     vel = VEL

@@ -1,6 +1,6 @@
 import pygame
 import random
-from flappybird.Constants import pipe_img, VEL, FLOOR_HEIGHT, WIN_WIDTH
+from FlappyBird.Constants import pipe_img, VEL, FLOOR_HEIGHT, WIN_WIDTH
 
 class Pipe:
     def __init__(self, win):

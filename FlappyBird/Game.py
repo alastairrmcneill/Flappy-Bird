@@ -3,11 +3,11 @@ The main game class for the flappy bird game. Stores all the game logic and func
 """
 
 import pygame
-from flappybird.Constants import bg_img
-from flappybird.Bird import Bird
-from flappybird.Base import Base
-from flappybird.Pipe import Pipe
-from flappybird.Constants import WIN_WIDTH, WIN_HEIGHT, FPS, BLACK, mediumFont, largeFont, smallFont, file_path
+from FlappyBird.Constants import bg_img
+from FlappyBird.Bird import Bird
+from FlappyBird.Base import Base
+from FlappyBird.Pipe import Pipe
+from FlappyBird.Constants import WIN_WIDTH, WIN_HEIGHT, FPS, BLACK, mediumFont, largeFont, smallFont, file_path
 
 class Game:
     def __init__(self, win):

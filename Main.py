@@ -6,8 +6,8 @@ Has ability to restart after crash, pixel perfect collisions and high score trac
 
 # Imports
 import pygame
-from flappybird.Constants import WIN_HEIGHT, WIN_WIDTH, FPS
-from flappybird.Game import Game
+from FlappyBird.Constants import WIN_HEIGHT, WIN_WIDTH, FPS
+from FlappyBird.Game import Game
 
 
 # Variables and constants
