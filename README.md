@@ -9,6 +9,6 @@ Pygame
 Run the main.py file and press space bar to jump.
 
 # File Structure
-files - contains the high score from previous games
+files - contains the high score from previous game
 imgs - contains the images needed to display window
 
